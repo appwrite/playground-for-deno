@@ -25,13 +25,13 @@ This playground doesn't include any deno best practices but rather intended to s
 6. You will see the JSON response in the console.
 
 ### API Covered in Playground.
-* createCollection
-* listCollection
-* addDoc
-* listDoc
-* uploadFile
-* createUser
-* listUser
+* Create Collection
+* List Collection
+* Add Document
+* List Documents
+* Upload File
+* Create User
+* List User
 
 ## Contributing
 
