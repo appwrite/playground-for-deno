@@ -7,7 +7,7 @@ Appwrite playground for Deno is a simple way to explore the Deno integration wit
 
 ## Get Started
 
-This playground doesn't include any android and Appwrite best practices but rather intended to show the most simple examples and use cases of using the Appwrite API in your deno application.
+This playground doesn't include any deno best practices but rather intended to show some of the most simple examples and use cases of using the Appwrite API in your deno application.
 
 ## System Requirements 
 * A Linux/Windows system deno installed and path is properly set for deno command execution.
@@ -19,10 +19,19 @@ This playground doesn't include any android and Appwrite best practices but rath
 1. Clone this repository.
 2. cd into to repository.
 3. Open the mod.ts file found in the root of the cloned repository.
-4. Update project_id, emdpoint, secret key in created above by copying from the console by passing in the API Constructor.  
+4. Copy the project_id, emdpoint, secret key from Appwrite Console.
+4. Update project_id, emdpoint, secret key by copied from the console in mod.ts file. 
 5. Execute the command `deno run -A mod.ts`
 6. You will see the JSON response in the console.
 
+### API Covered in Playground.
+* createCollection
+* listCollection
+* addDoc
+* listDoc
+* uploadFile
+* createUser
+* listUser
 
 ## Contributing
 

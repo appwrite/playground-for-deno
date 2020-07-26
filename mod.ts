@@ -4,14 +4,15 @@ import { API } from './api.ts';
 
 const api = new API(
     'http://localhost/v1', //endpoint
-    '', // Project ID
-    '' //Secret Key
+    '', // Enter Apwrite Project ID
+    '' // Enter Apwrite Secret Key
     );
     
 
-//api.createCollection();
+api.createCollection();
+api.listCollection();
 api.addDoc();
-api.uploadFile();
-api.createUser('someuser1@example.com', 'user@123','Some User');
 api.listDoc();
-
+api.uploadFile();
+api.createUser(new Date().getTime() + '@example.com', 'user@123','Some User');
+api.listUser();
