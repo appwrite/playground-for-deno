@@ -1,4 +1,4 @@
-# playground-for-deno
+# Playground for Deno
 Simple examples that help you get started with Appwrite + Deno (=❤️)
 
 **Work in Progress**
