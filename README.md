@@ -11,7 +11,7 @@ This playground doesn't include any deno best practices but rather intended to s
 
 ## System Requirements
 * A Linux/Windows system deno installed and path is properly set for deno command execution.
-* You have readily available AppWrite running instance (locahost in most cases).
+* You have readily available AppWrite running instance (localhost in most cases).
 * Create a project in AppWrite instance using console.
 * Generate a secret key in the AppWrite instance using console.
 
