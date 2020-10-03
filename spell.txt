@@ -1,4 +1,0 @@
-Appwrite
-Deno
-deno
-localost
