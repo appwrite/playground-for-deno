@@ -12,7 +12,7 @@ client.setProject("5f0807b93ba5f");
 let collectionId: string;
 let userId: any = "";
 
-//List of Api Definitions
+// List of Api Definitions
 const createCollection = async (): Promise<void> => {
   let database = new sdk.Database(client);
   let response: any = await database.createCollection(
@@ -104,7 +104,7 @@ const listUser = async (): Promise<void> => {
   console.log(response);
 };
 
-//API Calls
+// API Calls
 await createCollection();
 await listCollection();
 await addDoc();
