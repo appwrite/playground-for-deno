@@ -20,7 +20,7 @@ This playground doesn't include any deno best practices but rather intended to s
 2. cd into the repository.
 3. Open the mod.ts file found in the root of the cloned repository.
 4. Copy the project_id, endpoint, secret key from Appwrite Console.
-4. Update project_id, endpoint, secret key by copied from the console in mod.ts file.
+4. Update project_id, endpoint, secret key by copying from the console in the mod.ts file.
 5. Execute the command `deno run -A mod.ts`
 6. You will see the JSON response in the console.
 
