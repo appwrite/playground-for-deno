@@ -1,7 +1,7 @@
 import * as sdk from "https://deno.land/x/appwrite@0.0.2/mod.ts";
 import { bgWhite, green, bold } from "https://deno.land/std/fmt/colors.ts";
 
-//Configurations
+// Configurations
 
 const client: any = new sdk.Client();
 client.setEndpoint("http://localhost/v1");
@@ -12,16 +12,7 @@ client.setProject("5f0807b93ba5f");
 let collectionId: string;
 let userId: any = "";
 
-//API Calls
-//api.createCollection();
-// api.listCollection();
-// api.addDoc();
-// api.listDoc();
-// api.uploadFile();
-// api.createUser(new Date().getTime() + '@example.com', 'user@123','Some User');
-// api.listUser();
-
-//List of Api Definitions
+// List of Api Definitions
 const createCollection = async (): Promise<void> => {
   let database = new sdk.Database(client);
   let response: any = await database.createCollection(
@@ -49,7 +40,6 @@ const createCollection = async (): Promise<void> => {
   );
   collectionId = response.$id;
   console.log(bgWhite(green(bold("Running Create Collection API"))));
-  //console.log(bgWhite(green(bold(''))));
   console.log(response);
 };
 
@@ -114,6 +104,7 @@ const listUser = async (): Promise<void> => {
   console.log(response);
 };
 
+// API Calls
 await createCollection();
 await listCollection();
 await addDoc();
