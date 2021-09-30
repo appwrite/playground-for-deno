@@ -1,5 +1,5 @@
-import * as sdk from "https://deno.land/x/appwrite@0.4.0/mod.ts";
-import { bgWhite, green, bold } from "https://deno.land/std/fmt/colors.ts";
+import * as sdk from "https://deno.land/x/appwrite@0.2.1/mod.ts";
+import { bgWhite, bold, green } from "https://deno.land/std/fmt/colors.ts";
 
 // Configurations
 
@@ -104,12 +104,12 @@ const listUser = async (): Promise<void> => {
   console.log(response);
 };
 
-const getAccount = async (): Promise<void> {
-  const accont = new sdk.Account(client);
+const getAccount = async (): Promise<void> => {
+  const account = new sdk.Account(client);
   console.log(bgWhite(green(bold("Running Get Account API"))));
   let response = await account.get();
   console.log(response);
-}
+};
 
 // API Calls
 await createCollection();
