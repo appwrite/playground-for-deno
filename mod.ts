@@ -104,8 +104,8 @@ const listUser = async (): Promise<void> => {
   console.log(response);
 };
 
-const getAccount = async (): Promise<void> {
-  const accont = new sdk.Account(client);
+const getAccount = async (): Promise<void> => {
+  const account = new sdk.Account(client);
   console.log(bgWhite(green(bold("Running Get Account API"))));
   let response = await account.get();
   console.log(response);
