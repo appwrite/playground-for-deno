@@ -1,4 +1,4 @@
-import * as sdk from "https://deno.land/x/appwrite@0.2.1/mod.ts";
+import * as sdk from "https://deno.land/x/appwrite@0.4.0/mod.ts";
 import { bgWhite, green, bold } from "https://deno.land/std/fmt/colors.ts";
 
 // Configurations
