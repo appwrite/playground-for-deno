@@ -29,5 +29,5 @@ let userId: any = "";
     collectionId
   );
   await User.listUser(client);
-  await User.getAccount(client); //Works only with JWT
+  // await User.getAccount(client); //Works only with JWT
 })();
