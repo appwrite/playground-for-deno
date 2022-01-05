@@ -10,12 +10,13 @@ namespace Document {
 
     const response = await database.createDocument(
       collectionId,
+      "unique()",
       {
         name: "Spider Man",
         release_year: 1920,
       },
-      ["*"],
-      ["*"]
+      ["role:all"],
+      ["role:all"]
     );
     console.log(response);
   };
@@ -36,7 +37,7 @@ namespace Document {
     const fileBlob = new Blob([fileArray.buffer]);
     const file = new File([fileBlob], "nature.jpg");
 
-    let response = await storage.createFile(file, ["*"], ["*"]);
+    let response = await storage.createFile("unique()", file, ["role:all"], ["role:all"]);
     console.log(bgWhite(green(bold("Running Upload File API"))));
     console.log(response);
   };

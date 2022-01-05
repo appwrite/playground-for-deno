@@ -7,10 +7,11 @@ namespace Collection {
     collectionId: string
   ): Promise<void> => {
     const database = new sdk.Database(client);
-    const response: any = await database.createCollection(
+    let response: any = await database.createCollection(
+      "movies", // collection id
       "Movies", // Collection Name
-      ["*"], // Read permissions
-      ["*"], // Write permissions
+      ["role:all"], // Read permissions
+      ["role:all"], // Write permissions
       [
         {
           label: "Name",
@@ -33,6 +34,21 @@ namespace Collection {
     collectionId = response.$id;
     console.log(bgWhite(green(bold("Running Create Collection API"))));
     console.log(response);
+    response = await database.createStringAttribute(
+      collectionId,
+      'name',
+      255,
+      true,
+    )
+    console.log(response)
+    response = database.createIntegerAttribute(
+      collectionId,
+      'release_year',
+      0,
+      9999,
+      true
+    )
+    console.log(response)
   };
 
   export const listCollection = async (client: any): Promise<void> => {

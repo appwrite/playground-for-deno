@@ -10,7 +10,7 @@ namespace User {
     userId: any
   ): Promise<void> => {
     const users = new sdk.Users(client);
-    let response: any = await users.create(email, password, name);
+    let response: any = await users.create("unique()", email, password, name);
     userId = response.$id;
     console.log(bgWhite(green(bold("Running Create User API"))));
     console.log(response);

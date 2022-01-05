@@ -1,4 +1,4 @@
-import * as sdk from "https://deno.land/x/appwrite@0.2.1/mod.ts";
+import * as sdk from "https://deno.land/x/appwrite@2.0.0/mod.ts";
 import { Collection, User, Document } from "./api";
 // Configurations
 
