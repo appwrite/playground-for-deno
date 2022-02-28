@@ -10,26 +10,9 @@ namespace Collection {
     let response: any = await database.createCollection(
       "movies", // collection id
       "Movies", // Collection Name
+      "document",
       ["role:all"], // Read permissions
       ["role:all"], // Write permissions
-      [
-        {
-          label: "Name",
-          key: "name",
-          type: "text",
-          default: "Empty Name",
-          required: true,
-          array: false,
-        },
-        {
-          label: "release_year",
-          key: "release_year",
-          type: "numeric",
-          default: 1970,
-          required: true,
-          array: false,
-        },
-      ]
     );
     collectionId = response.$id;
     console.log(bgWhite(green(bold("Running Create Collection API"))));
@@ -44,9 +27,9 @@ namespace Collection {
     response = database.createIntegerAttribute(
       collectionId,
       'release_year',
+      true,
       0,
       9999,
-      true
     )
     console.log(response)
   };
