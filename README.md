@@ -21,7 +21,12 @@ This playground doesn't include any deno best practices but rather intended to s
 2. `cd` into the repository.
 3. Open the `mod.ts` file found in the root of the cloned repository.
 4. Copy Project ID, endpoint and API key from Appwrite console into `mod.ts`
-5. Run the playground: `deno run -A src/mod.ts`
+5. Run the playground:
+    Deno:
+        - Install dependencies `deno cache src/mod.ts`
+        - Execute the command `deno run -A src/mod.ts`
+    Docker:
+        - Execute the command `docker compose up`
 6. You will see the JSON response in the console.
 
 ### API's Covered
