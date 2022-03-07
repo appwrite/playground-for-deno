@@ -1,4 +1,4 @@
-import * as sdk from "https://deno.land/x/appwrite@0.2.1/mod.ts";
+import * as sdk from "https://deno.land/x/appwrite@3.0.0/mod.ts";
 import { bgWhite, green, bold } from "https://deno.land/std/fmt/colors.ts";
 
 namespace User {
@@ -6,27 +6,40 @@ namespace User {
     email: string,
     password: string,
     name: string,
-    client: any,
-    userId: any
-  ): Promise<void> => {
-    const users = new sdk.Users(client);
-    let response: any = await users.create(email, password, name);
-    userId = response.$id;
+    client: sdk.Client,
+    userId: string
+  ): Promise<string> => {
     console.log(bgWhite(green(bold("Running Create User API"))));
+
+    const users = new sdk.Users(client);
+    let response = await users.create("unique()", email, password, name);
+    userId = response.$id;
     console.log(response);
+
+    return userId;
   };
 
-  export const listUser = async (client: any): Promise<void> => {
+  export const listUsers = async (client: sdk.Client): Promise<void> => {
+    console.log(bgWhite(green(bold("Running List Users API"))));
+
     const users = new sdk.Users(client);
-    console.log(bgWhite(green(bold("Running List User API"))));
     let response = await users.list();
     console.log(response);
   };
 
-  export const getAccount = async (client: any): Promise<void> => {
-    const account = new sdk.Account(client);
+  export const getAccount = async (client: sdk.Client): Promise<void> => {
     console.log(bgWhite(green(bold("Running Get Account API"))));
+
+    const account = new sdk.Account(client);
     let response = await account.get();
+    console.log(response);
+  };
+
+  export const deleteUser = async (client: sdk.Client, userId: string): Promise<void> => {
+    console.log(bgWhite(green(bold("Running Delete User API"))));
+
+    const users = new sdk.Users(client);
+    let response = await users.delete(userId);
     console.log(response);
   };
 }

@@ -9,29 +9,43 @@ Appwrite playground for Deno is a simple way to explore the Deno integration wit
 
 This playground doesn't include any deno best practices but rather intended to show some of the most simple examples and use cases of using the Appwrite API in your deno application.
 
-## System Requirements
-* A Linux/Windows system deno installed and path is properly set for deno command execution.
-* You have readily available AppWrite running instance (localhost in most cases).
-* Create a project in AppWrite instance using console.
-* Generate a secret key in the AppWrite instance using console.
+## Requirements
+* A system with Deno or Docker installed.
+* An Appwrite instance.
+* An Appwrite project created in the console.
+* An Appwrite API key created in the console.
 
 ### Installation
+
 1. Clone this repository.
-2. cd into the repository.
-3. Open the mod.ts file found in the root of the cloned repository.
-4. Copy the project_id, endpoint, secret key from Appwrite Console.
-4. Update project_id, endpoint, secret key by copying from the console in the mod.ts file.
-5. Execute the command `deno run -A src/mod.ts`
+2. `cd` into the repository.
+3. Open the `mod.ts` file found in the root of the cloned repository.
+4. Copy Project ID, endpoint and API key from Appwrite console into `mod.ts`
+5. Run the playground: `deno run -A src/mod.ts`
 6. You will see the JSON response in the console.
 
-### API Covered in Playground.
-* Create Collection
-* List Collection
-* Add Document
-* List Documents
-* Upload File
-* Create User
-* List User
+### API's Covered
+
+- Databse
+    * Create Collection
+    * List Collections
+    * Delete Collection
+    * Create Document
+    * List Documents
+    * Delete Document
+
+- Storage
+    * Create Bucket
+    * List Buckets
+    * Delete Bucket
+    * Upload File
+    * List Files
+    * Delete File
+
+- Users
+    * Create User
+    * List Users
+    * Delete User
 
 ## Contributing
 
