@@ -6,7 +6,7 @@ namespace Storage {
     console.log(bgWhite(green(bold("Running Upload File API"))));
 
     let storage = new sdk.Storage(client);
-    let response = await storage.createFile(bucketId, "unique()", "nature.jpg", ["role:all"], ["role:all"]);
+    let response = await storage.createFile(bucketId, "unique()", "./resources/nature.jpg", ["role:all"], ["role:all"]);
     console.log(response);
     const fileId = response.$id;
 

@@ -1,5 +1,5 @@
 import * as sdk from "https://deno.land/x/appwrite@3.0.0/mod.ts";
-import { Collection, User, Document, Storage } from "./api/index.ts";
+import { Collection, User, Document, Storage, Function } from "./api/index.ts";
 
 // Configurations
 const client: any = new sdk.Client();
@@ -30,6 +30,13 @@ client.setProject("YOUR_PROJECT_ID");
 
   await Storage.deleteFile(client, bucketId, fileId);
   await Storage.deleteBucket(client, bucketId);
+
+  const functionId = await Function.createFunction(client);
+  await Function.listFunctions(client);
+  await Function.uploadDeployment(client, functionId);
+  await Function.executeSync(client, functionId);
+  await Function.executeAsync(client, functionId);
+  await Function.deleteFunction(client, functionId);
 
   // await User.getAccount(client); //Works only with JWT
   const userId = await User.createUser(
