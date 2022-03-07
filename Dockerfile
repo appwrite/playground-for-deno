@@ -1,7 +1,5 @@
-FROM python:3.10-alpine
+FROM denoland/deno:alpine-1.10.3
 WORKDIR /app
-RUN apk update && apk add git
-COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
 COPY . .
-CMD python playground.py
+RUN deno cache src/mod.ts
+CMD deno run -A src/mod.ts
