@@ -5,7 +5,7 @@ import { Collection, User, Document, Storage, Function } from "./api/index.ts";
 const client: any = new sdk.Client();
 client.setEndpoint("http://YOUR_HOST/v1");
 client.setKey(
-  "YOU_API_KEY"
+  "YOUR_API_KEY"
 );
 client.setProject("YOUR_PROJECT_ID");
 // client.setJWT('jwt') // Use this to authenticate with JWT generated from client
