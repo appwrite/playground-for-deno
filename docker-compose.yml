@@ -1,0 +1,9 @@
+version: '3.9'
+
+services:
+  playground-for-deno:
+    build: .
+    volumes:
+      - "./:/app"
+    working_dir: /app
+    command: "deno run -A /app/src/mod.ts" 

@@ -1,33 +1,53 @@
-import * as sdk from "https://deno.land/x/appwrite@0.2.1/mod.ts";
-import { Collection, User, Document } from "./api";
-// Configurations
+import * as sdk from "https://deno.land/x/appwrite@3.0.0/mod.ts";
+import { Collection, User, Document, Storage, Function } from "./api/index.ts";
 
+// Configurations
 const client: any = new sdk.Client();
-client.setEndpoint("http://localhost/v1");
+client.setEndpoint("http://YOUR_HOST/v1");
 client.setKey(
-  "d4688ed268bbee7216bfee8686e7b31a34e5450b41e69d61de3bd9844626dcc9c4b436ad09cd14123dd4f45f3c8345356304122f380bbf3820d244855267eb904f45b52ad21760916623aad60ee51da97e08c6fb8d5646552f207bb3959d3fd56b57903aff0cd13e618792f916f983d18a49e58912c85f00354eb81ecbd8eb63"
+  "YOUR_API_KEY"
 );
+client.setProject("YOUR_PROJECT_ID");
 // client.setJWT('jwt') // Use this to authenticate with JWT generated from client
-client.setProject("5f0807b93ba5f");
-let collectionId: string;
-let userId: any = "";
 
 // API Calls
-
 (async function () {
-  await Collection.createCollection(client, collectionId);
-  await Collection.listCollection(client);
+  const collectionId = await Collection.createCollection(client);
+  await Collection.listCollections(client);
+  await Collection.listAttributes(client, collectionId);
 
-  await Document.uploadFile(client);
-  await Document.listDoc(client, collectionId);
-  await Document.addDoc(client, collectionId);
-  await User.createUser(
+  const documentId = await Document.createDocument(client, collectionId);
+  await Document.listDocuments(client, collectionId);
+
+  await Document.deleteDocument(client, collectionId, documentId);
+  await Collection.deleteCollection(client, collectionId);
+
+  const bucketId = await Storage.createBucket(client);
+  await Storage.listBuckets(client);
+
+  const fileId = await Storage.uploadFile(client, bucketId);
+  await Storage.listFiles(client, bucketId);
+
+  await Storage.deleteFile(client, bucketId, fileId);
+  await Storage.deleteBucket(client, bucketId);
+
+  // await User.getAccount(client); //Works only with JWT
+  const userId = await User.createUser(
     new Date().getTime() + "@example.com",
     "user@123",
     "Some User",
     client,
     collectionId
   );
-  await User.listUser(client);
-  // await User.getAccount(client); //Works only with JWT
-})();
+  await User.listUsers(client);
+  await User.deleteUser(client, userId);
+
+  const functionId = await Function.createFunction(client);
+  await Function.listFunctions(client);
+  await Function.uploadDeployment(client, functionId);
+  await Function.executeSync(client, functionId);
+  await Function.executeAsync(client, functionId);
+  await Function.deleteFunction(client, functionId);
+})().catch((err) => {
+  console.error(err);
+})

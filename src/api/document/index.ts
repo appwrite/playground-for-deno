@@ -1,43 +1,51 @@
-import * as sdk from "https://deno.land/x/appwrite@0.2.1/mod.ts";
+import * as sdk from "https://deno.land/x/appwrite@3.0.0/mod.ts";
 import { bgWhite, green, bold } from "https://deno.land/std/fmt/colors.ts";
 
 namespace Document {
-  export const addDoc = async (
-    client: any,
+  export const createDocument = async (
+    client: sdk.Client,
     collectionId: string
-  ): Promise<void> => {
+  ): Promise<string> => {
+    console.log(bgWhite(green(bold("Running Create Document API"))));
+
     const database = new sdk.Database(client);
 
     const response = await database.createDocument(
       collectionId,
+      "unique()",
       {
         name: "Spider Man",
         release_year: 1920,
       },
-      ["*"],
-      ["*"]
+      ["role:all"],
+      ["role:all"]
     );
     console.log(response);
+    const documentId = response.$id;
+
+    return documentId;
   };
 
-  export const listDoc = async (
-    client: any,
+  export const listDocuments = async (
+    client: sdk.Client,
     collectionId: string
   ): Promise<void> => {
-    const database = new sdk.Database(client);
-    const response: any = await database.listDocuments(collectionId);
     console.log(bgWhite(green(bold("Running List Documents API"))));
+
+    const database = new sdk.Database(client);
+    const response = await database.listDocuments(collectionId);
     console.log(response);
   };
 
-  export const uploadFile = async (client: any): Promise<void> => {
-    let storage = new sdk.Storage(client);
-    const fileArray = await Deno.readFile("nature.jpg");
-    const fileBlob = new Blob([fileArray.buffer]);
-    const file = new File([fileBlob], "nature.jpg");
+  export const deleteDocument = async (
+    client: sdk.Client,
+    collectionId: string,
+    documentId: string
+  ): Promise<void> => {
+    console.log(bgWhite(green(bold("Running Delete Document API"))));
 
-    let response = await storage.createFile(file, ["*"], ["*"]);
-    console.log(bgWhite(green(bold("Running Upload File API"))));
+    const database = new sdk.Database(client);
+    const response = await database.deleteDocument(collectionId, documentId);
     console.log(response);
   };
 }
