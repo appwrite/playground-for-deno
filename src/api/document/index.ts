@@ -1,14 +1,14 @@
-import * as sdk from "https://deno.land/x/appwrite@3.0.0/mod.ts";
-import { bgWhite, green, bold } from "https://deno.land/std/fmt/colors.ts";
+import { Client, Databases } from "../../deps.ts";
+import { bgWhite, green, bold } from "../../deps.ts";
 
-namespace Document {
-  export const createDocument = async (
-    client: sdk.Client,
+class Document {
+  static async createDocument(
+    client: Client,
     collectionId: string
-  ): Promise<string> => {
+  ): Promise<string> {
     console.log(bgWhite(green(bold("Running Create Document API"))));
 
-    const database = new sdk.Database(client);
+    const database = new Databases(client, "default");
 
     const response = await database.createDocument(
       collectionId,
@@ -24,30 +24,30 @@ namespace Document {
     const documentId = response.$id;
 
     return documentId;
-  };
+  }
 
-  export const listDocuments = async (
-    client: sdk.Client,
+  static async listDocuments(
+    client: Client,
     collectionId: string
-  ): Promise<void> => {
+  ): Promise<void> {
     console.log(bgWhite(green(bold("Running List Documents API"))));
 
-    const database = new sdk.Database(client);
+    const database = new Databases(client, "default");
     const response = await database.listDocuments(collectionId);
     console.log(response);
-  };
+  }
 
-  export const deleteDocument = async (
-    client: sdk.Client,
+  static async deleteDocument(
+    client: Client,
     collectionId: string,
     documentId: string
-  ): Promise<void> => {
+  ): Promise<void> {
     console.log(bgWhite(green(bold("Running Delete Document API"))));
 
-    const database = new sdk.Database(client);
+    const database = new Databases(client, "default");
     const response = await database.deleteDocument(collectionId, documentId);
     console.log(response);
-  };
+  }
 }
 
 export default Document;

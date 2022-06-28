@@ -1,17 +1,19 @@
-import * as sdk from "https://deno.land/x/appwrite@3.0.0/mod.ts";
-import { Collection, User, Document, Storage, Function } from "./api/index.ts";
+import { Client } from "./deps.ts";
+import { Collection, User, Document, Buckets, Function } from "./api/index.ts";
 
 // Configurations
-const client: any = new sdk.Client();
-client.setEndpoint("http://YOUR_HOST/v1");
+const client = new Client();
+client.setEndpoint("http://8080-appwrite-appwrite-fit3ikbto7v.ws-eu47.gitpod.io/v1");
 client.setKey(
-  "YOUR_API_KEY"
+  "dc4dcc8c2d6248108e63b9147f2dc1ea2377da15e3663825687ae6ff3076bfef0dd08b724a76458f310623a5e494bc6a396ed70dee4c753be319a677eadf228c24cadf6c64c2921959452b59fd39f42a0712b6278efc919d46200b245b93818b4cce9f5a45623b8b277faa366b74f712deba2c4838a69861266d2c022d167fec"
 );
-client.setProject("YOUR_PROJECT_ID");
+client.setProject("dev");
 // client.setJWT('jwt') // Use this to authenticate with JWT generated from client
 
 // API Calls
 (async function () {
+  await Collection.createDatabase(client);
+
   const collectionId = await Collection.createCollection(client);
   await Collection.listCollections(client);
   await Collection.listAttributes(client, collectionId);
@@ -22,14 +24,14 @@ client.setProject("YOUR_PROJECT_ID");
   await Document.deleteDocument(client, collectionId, documentId);
   await Collection.deleteCollection(client, collectionId);
 
-  const bucketId = await Storage.createBucket(client);
-  await Storage.listBuckets(client);
+  const bucketId = await Buckets.createBucket(client);
+  await Buckets.listBuckets(client);
 
-  const fileId = await Storage.uploadFile(client, bucketId);
-  await Storage.listFiles(client, bucketId);
+  const fileId = await Buckets.uploadFile(client, bucketId);
+  await Buckets.listFiles(client, bucketId);
 
-  await Storage.deleteFile(client, bucketId, fileId);
-  await Storage.deleteBucket(client, bucketId);
+  await Buckets.deleteFile(client, bucketId, fileId);
+  await Buckets.deleteBucket(client, bucketId);
 
   // await User.getAccount(client); //Works only with JWT
   const userId = await User.createUser(
