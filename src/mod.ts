@@ -3,11 +3,11 @@ import { Collection, User, Document, Buckets, Function } from "./api/index.ts";
 
 // Configurations
 const client = new Client();
-client.setEndpoint("http://8080-appwrite-appwrite-fit3ikbto7v.ws-eu47.gitpod.io/v1");
+client.setEndpoint("http://YOUR_HOST/v1");
 client.setKey(
-  "dc4dcc8c2d6248108e63b9147f2dc1ea2377da15e3663825687ae6ff3076bfef0dd08b724a76458f310623a5e494bc6a396ed70dee4c753be319a677eadf228c24cadf6c64c2921959452b59fd39f42a0712b6278efc919d46200b245b93818b4cce9f5a45623b8b277faa366b74f712deba2c4838a69861266d2c022d167fec"
+  "YOUR_API_KEY"
 );
-client.setProject("dev");
+client.setProject("YOUR_PROJECT_ID");
 // client.setJWT('jwt') // Use this to authenticate with JWT generated from client
 
 // API Calls
