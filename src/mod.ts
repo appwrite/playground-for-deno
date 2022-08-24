@@ -1,8 +1,8 @@
-import * as sdk from "https://deno.land/x/appwrite@3.0.0/mod.ts";
-import { Collection, User, Document, Storage, Function } from "./api/index.ts";
+import { Client } from "./deps.ts";
+import { Collection, User, Document, Buckets, Function } from "./api/index.ts";
 
 // Configurations
-const client: any = new sdk.Client();
+const client = new Client();
 client.setEndpoint("http://YOUR_HOST/v1");
 client.setKey(
   "YOUR_API_KEY"
@@ -12,6 +12,8 @@ client.setProject("YOUR_PROJECT_ID");
 
 // API Calls
 (async function () {
+  await Collection.createDatabase(client);
+
   const collectionId = await Collection.createCollection(client);
   await Collection.listCollections(client);
   await Collection.listAttributes(client, collectionId);
@@ -22,14 +24,14 @@ client.setProject("YOUR_PROJECT_ID");
   await Document.deleteDocument(client, collectionId, documentId);
   await Collection.deleteCollection(client, collectionId);
 
-  const bucketId = await Storage.createBucket(client);
-  await Storage.listBuckets(client);
+  const bucketId = await Buckets.createBucket(client);
+  await Buckets.listBuckets(client);
 
-  const fileId = await Storage.uploadFile(client, bucketId);
-  await Storage.listFiles(client, bucketId);
+  const fileId = await Buckets.uploadFile(client, bucketId);
+  await Buckets.listFiles(client, bucketId);
 
-  await Storage.deleteFile(client, bucketId, fileId);
-  await Storage.deleteBucket(client, bucketId);
+  await Buckets.deleteFile(client, bucketId, fileId);
+  await Buckets.deleteBucket(client, bucketId);
 
   // await User.getAccount(client); //Works only with JWT
   const userId = await User.createUser(

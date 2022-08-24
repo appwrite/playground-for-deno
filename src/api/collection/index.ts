@@ -1,13 +1,26 @@
-import * as sdk from "https://deno.land/x/appwrite@3.0.0/mod.ts";
-import { bgWhite, green, bold } from "https://deno.land/std/fmt/colors.ts";
+import { Client, Databases } from "../../deps.ts";
+import { bgWhite, green, bold } from "../../deps.ts";
 
-namespace Collection {
-  export const createCollection = async (
-    client: sdk.Client
-  ): Promise<string> => {
+class Collection {
+  static async createDatabase(
+    client: Client
+  ): Promise<string> {
+    console.log(bgWhite(green(bold("Running Create Database API"))));
+
+    const database = new Databases(client, "default");
+    const response = await database.create("Default");
+
+    console.log(response);
+
+    return response.$id;
+  }
+
+  static async createCollection(
+    client: Client
+  ): Promise<string> {
     console.log(bgWhite(green(bold("Running Create Collection API"))));
 
-    const database = new sdk.Database(client);
+    const database = new Databases(client, "default");
     const response = await database.createCollection(
       "unique()", // ID of the collection
       "Movies", // Collection Name
@@ -30,34 +43,34 @@ namespace Collection {
     await new Promise((resolve) => setTimeout(resolve, 2000));
 
     return collectionId;
-  };
+  }
 
-  export const listCollections = async (client: sdk.Client): Promise<void> => {
+  static async listCollections(client: Client): Promise<void> {
     console.log(bgWhite(green(bold("Running List Collections API"))));
 
-    const database = new sdk.Database(client);
-    let response = await database.listCollections();
+    const database = new Databases(client, "default");
+    const response = await database.listCollections();
     console.log(response);
-  };
+  }
 
-  export const listAttributes = async (client: sdk.Client, collectionId: string): Promise<void> => {
+  static async listAttributes(client: Client, collectionId: string): Promise<void> {
     console.log(bgWhite(green(bold("Running List Attributes API"))));
 
-    const database = new sdk.Database(client);
-    let response = await database.listAttributes(collectionId);
+    const database = new Databases(client, "default");
+    const response = await database.listAttributes(collectionId);
     console.log(response);
-  };
+  }
 
-  export const deleteCollection = async (
-    client: sdk.Client,
+  static async deleteCollection(
+    client: Client,
     collectionId: string
-  ): Promise<void> => {
+  ): Promise<void> {
     console.log(bgWhite(green(bold("Running Delete Collection API"))));
 
-    const database = new sdk.Database(client);
+    const database = new Databases(client, "default");
     const response = await database.deleteCollection(collectionId);
     console.log(response);
-  };
+  }
 }
 
 export default Collection;
