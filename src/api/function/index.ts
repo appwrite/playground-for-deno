@@ -1,77 +1,104 @@
-import * as sdk from "https://deno.land/x/appwrite@3.0.0/mod.ts";
-import { bgWhite, green, bold } from "https://deno.land/std/fmt/colors.ts";
+import {
+  Client,
+  Functions,
+  ID,
+} from "https://deno.land/x/appwrite@11.0.0/mod.ts";
+import {
+  bgWhite,
+  green,
+  bold,
+} from "https://deno.land/std@0.224.0/fmt/colors.ts";
+import { Runtime } from "https://deno.land/x/appwrite@11.0.0/src/enums/runtime.ts";
+import { InputFile } from "https://deno.land/x/appwrite@11.0.0/src/inputFile.ts";
 
-namespace Function {
-  export const createFunction = async (
-    client: sdk.Client,
-  ): Promise<string> => {
-    console.log(bgWhite(green(bold("Running Create Function API"))));
+export const createFunction = async (client: Client): Promise<string> => {
+  console.log(bgWhite(green(bold("Running Create Function API"))));
 
-    const functions = new sdk.Functions(client);
-    const response = await functions.create(
-      "unique()",
-      "Node Hello World",
-      ["role:all"],
-      "node-16.0"
-    );
-    console.log(response);
-    const functionId = response.$id;
+  const functions = new Functions(client);
+  const response = await functions.create(
+    ID.unique(),
+    "Node Hello World",
+    Runtime.Node180
+  );
+  console.log(response);
+  const functionId = response.$id;
 
-    return functionId;
-  };
+  return functionId;
+};
 
-  export const listFunctions = async (client: sdk.Client): Promise<void> => {
-    console.log(bgWhite(green(bold("Running List Functions API"))));
+export const listFunctions = async (client: Client): Promise<void> => {
+  console.log(bgWhite(green(bold("Running List Functions API"))));
 
-    const functions = new sdk.Functions(client);
-    let response = await functions.list();
-    console.log(response);
-  };
+  const functions = new Functions(client);
+  const response = await functions.list();
+  console.log(response);
+};
 
-  export const executeSync = async (client: sdk.Client, functionId: string): Promise<void> => {
-    console.log(bgWhite(green(bold("Running Execute Function API (sync)"))));
+export const executeSync = async (
+  client: Client,
+  functionId: string
+): Promise<void> => {
+  console.log(bgWhite(green(bold("Running Execute Function API (sync)"))));
 
-    const functions = new sdk.Functions(client);
-    let response = await functions.createExecution(functionId, '', false);
-    console.log(response);
-  };
+  const functions = new Functions(client);
+  const response = await functions.createExecution(functionId, "", false);
+  console.log(response);
+};
 
-  export const executeAsync = async (client: sdk.Client, functionId: string): Promise<void> => {
-    console.log(bgWhite(green(bold("Running Execute Function API (async)"))));
+export const executeAsync = async (
+  client: Client,
+  functionId: string
+): Promise<void> => {
+  console.log(bgWhite(green(bold("Running Execute Function API (async)"))));
 
-    const functions = new sdk.Functions(client);
-    let response = await functions.createExecution(functionId, '', true);
-    console.log(response);
-    const executionId = response.$id;
+  const functions = new Functions(client);
+  const response = await functions.createExecution(functionId, "", true);
+  console.log(response);
+  const executionId = response.$id;
 
-    console.log("Waiting a little to ensure execution is finished ...");
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    let asyncResponse = await functions.getExecution(functionId, executionId);
-    console.log(asyncResponse);
-  };
+  console.log("Waiting a little to ensure execution is finished ...");
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+  const asyncResponse = await functions.getExecution(functionId, executionId);
+  console.log(asyncResponse);
+};
 
-  export const uploadDeployment = async (client: sdk.Client, functionId: string): Promise<void> => {
-    console.log(bgWhite(green(bold("Running Upload Deployment API"))));
+export const uploadDeployment = async (
+  client: Client,
+  functionId: string
+): Promise<void> => {
+  console.log(bgWhite(green(bold("Running Upload Deployment API"))));
 
-    const functions = new sdk.Functions(client);
-    let response = await functions.createDeployment(functionId, "index.js", "./resources/code.tar.gz", true);
-    console.log(response);
+  const functions = new Functions(client);
+  const response = await functions.createDeployment(
+    functionId,
+    InputFile.fromPath("./resources/code.tar.gz", "code.tar.gz"),
+    true,
+    "index.js"
+  );
+  console.log(response);
 
+  console.log("Waiting a little to ensure deployment has built ...");
+  await new Promise((resolve) => setTimeout(resolve, 5000));
+};
 
-    console.log("Waiting a little to ensure deployment has built ...");
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-  };
+export const createExecution = async (
+  client: Client,
+  functionId: string
+): Promise<void> => {
+  console.log(bgWhite(green(bold("Running Create Execution API"))));
 
-  export const deleteFunction = async (
-    client: sdk.Client,
-    functionId: string
-  ): Promise<void> => {
-    console.log(bgWhite(green(bold("Running Delete Function API"))));
+  const functions = new Functions(client);
+  const response = await functions.createExecution(functionId);
+  console.log(response);
+};
 
-    const functions = new sdk.Functions(client);
-    const response = await functions.delete(functionId);
-    console.log(response);
-  };
-}
+export const deleteFunction = async (
+  client: Client,
+  functionId: string
+): Promise<void> => {
+  console.log(bgWhite(green(bold("Running Delete Function API"))));
 
-export default Function;
+  const functions = new Functions(client);
+  const response = await functions.delete(functionId);
+  console.log(response);
+};

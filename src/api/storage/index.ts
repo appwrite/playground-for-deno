@@ -1,82 +1,96 @@
-import * as sdk from "https://deno.land/x/appwrite@3.0.0/mod.ts";
-import { bgWhite, green, bold } from "https://deno.land/std/fmt/colors.ts";
+import {
+  Client,
+  Storage,
+  ID,
+  InputFile,
+  Permission,
+  Role,
+} from "https://deno.land/x/appwrite@11.0.0/mod.ts";
+import {
+  bgWhite,
+  green,
+  bold,
+} from "https://deno.land/std@0.224.0/fmt/colors.ts";
 
-namespace Storage {
-  export const uploadFile = async (client: sdk.Client, bucketId: string): Promise<string> => {
-    console.log(bgWhite(green(bold("Running Upload File API"))));
+export const uploadFile = async (
+  client: Client,
+  bucketId: string
+): Promise<string> => {
+  console.log(bgWhite(green(bold("Running Upload File API"))));
 
-    let storage = new sdk.Storage(client);
-    let response = await storage.createFile(bucketId, "unique()", "./resources/nature.jpg", ["role:all"], ["role:all"]);
-    console.log(response);
-    const fileId = response.$id;
+  const storage = new Storage(client);
+  const response = await storage.createFile(
+    bucketId,
+    ID.unique(),
+    InputFile.fromPath("./resources/nature.jpg", "nature.jpg"),
+    [
+      Permission.read(Role.users()),
+      Permission.write(Role.users()),
+      Permission.update(Role.users()),
+      Permission.delete(Role.users()),
+    ]
+  );
+  console.log(response);
+  const fileId = response.$id;
 
-    return fileId;
-  };
+  return fileId;
+};
 
-  export const listFiles = async (
-    client: sdk.Client,
-    bucketId: string
-  ): Promise<void> => {
-    console.log(bgWhite(green(bold("Running List Files API"))));
+export const listFiles = async (
+  client: Client,
+  bucketId: string
+): Promise<void> => {
+  console.log(bgWhite(green(bold("Running List Files API"))));
 
-    const storage = new sdk.Storage(client);
-    const response = await storage.listFiles(bucketId);
-    console.log(response);
-  };
+  const storage = new Storage(client);
+  const response = await storage.listFiles(bucketId);
+  console.log(response);
+};
 
-  export const createBucket = async (
-    client: sdk.Client,
-  ): Promise<string> => {
-    console.log(bgWhite(green(bold("Running Create Bucket API"))));
+export const createBucket = async (client: Client): Promise<string> => {
+  console.log(bgWhite(green(bold("Running Create Bucket API"))));
 
-    const storage = new sdk.Storage(client);
+  const storage = new Storage(client);
 
-    const response = await storage.createBucket(
-      "unique()",
-      "All Files",
-      "bucket",
-      ["role:all"],
-      ["role:all"]
-    );
-    console.log(response);
-    const bucketId = response.$id;
+  const response = await storage.createBucket(ID.unique(), "All Files", [
+    Permission.read(Role.users()),
+    Permission.create(Role.users()),
+    Permission.update(Role.users()),
+    Permission.delete(Role.users()),
+  ]);
+  console.log(response);
+  const bucketId = response.$id;
 
-    return bucketId;
-  };
+  return bucketId;
+};
 
+export const listBuckets = async (client: Client): Promise<void> => {
+  console.log(bgWhite(green(bold("Running List Buckets API"))));
 
-  export const listBuckets = async (
-    client: sdk.Client
-  ): Promise<void> => {
-    console.log(bgWhite(green(bold("Running List Buckets API"))));
+  const storage = new Storage(client);
+  const response = await storage.listBuckets();
+  console.log(response);
+};
 
-    const storage = new sdk.Storage(client);
-    const response = await storage.listBuckets();
-    console.log(response);
-  };
+export const deleteFile = async (
+  client: Client,
+  bucketId: string,
+  fileId: string
+): Promise<void> => {
+  console.log(bgWhite(green(bold("Running Delete File API"))));
 
-  export const deleteFile = async (
-    client: sdk.Client,
-    bucketId: string,
-    fileId: string
-  ): Promise<void> => {
-    console.log(bgWhite(green(bold("Running Delete File API"))));
+  const storage = new Storage(client);
+  const response = await storage.deleteFile(bucketId, fileId);
+  console.log(response);
+};
 
-    const storage = new sdk.Storage(client);
-    const response = await storage.deleteFile(bucketId, fileId);
-    console.log(response);
-  };
+export const deleteBucket = async (
+  client: Client,
+  bucketId: string
+): Promise<void> => {
+  console.log(bgWhite(green(bold("Running Delete Bucket API"))));
 
-  export const deleteBucket = async (
-    client: sdk.Client,
-    bucketId: string
-  ): Promise<void> => {
-    console.log(bgWhite(green(bold("Running Delete Bucket API"))));
-
-    const storage = new sdk.Storage(client);
-    const response = await storage.deleteBucket(bucketId);
-    console.log(response);
-  };
-}
-
-export default Storage;
+  const storage = new Storage(client);
+  const response = await storage.deleteBucket(bucketId);
+  console.log(response);
+};
