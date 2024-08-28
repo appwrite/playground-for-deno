@@ -2,14 +2,14 @@ import {
   Client,
   Functions,
   ID,
-} from "https://deno.land/x/appwrite@11.0.0/mod.ts";
+} from "https://deno.land/x/appwrite@12.0.0/mod.ts";
 import {
   bgWhite,
   green,
   bold,
 } from "https://deno.land/std@0.224.0/fmt/colors.ts";
-import { Runtime } from "https://deno.land/x/appwrite@11.0.0/src/enums/runtime.ts";
-import { InputFile } from "https://deno.land/x/appwrite@11.0.0/src/inputFile.ts";
+import { Runtime } from "https://deno.land/x/appwrite@12.0.0/src/enums/runtime.ts";
+import { InputFile } from "https://deno.land/x/appwrite@12.0.0/src/inputFile.ts";
 
 export const createFunction = async (client: Client): Promise<string> => {
   console.log(bgWhite(green(bold("Running Create Function API"))));

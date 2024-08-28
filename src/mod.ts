@@ -1,4 +1,4 @@
-import { Client } from "https://deno.land/x/appwrite@11.0.0/mod.ts";
+import { Client } from "https://deno.land/x/appwrite@12.0.0/mod.ts";
 import { Databases, User, Document, Storage, Function } from "./api/index.ts";
 
 // Configurations

@@ -5,7 +5,7 @@ import {
   InputFile,
   Permission,
   Role,
-} from "https://deno.land/x/appwrite@11.0.0/mod.ts";
+} from "https://deno.land/x/appwrite@12.0.0/mod.ts";
 import {
   bgWhite,
   green,
